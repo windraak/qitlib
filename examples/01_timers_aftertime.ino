@@ -18,7 +18,7 @@ LED< LED_BUILTIN > ledBuiltin;
 
 // we allocate a few timers, in this case 8
 // so we can press the button 8 times
-TimerThreads< 8 > timThread;
+Timers< 8 > timThread;
 
 // on pin 7 we put a button
 Button< 7 > btnDelayPrint([](bool pressed) {

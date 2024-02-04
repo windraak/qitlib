@@ -19,7 +19,7 @@ using namespace qit;
 LED< LED_BUILTIN > ledBuiltin;
 
 // we allocate a few timers, in this case 8 simaltanious pushes
-TimerThreads< 8 > timThread;
+Timers< 8 > timThread;
 
 // on pin 7 we put a button
 Button< 7 > btnDelayPrint([](bool pressed) {
