@@ -4,8 +4,10 @@
 // So we can serial print and take out serial print easily
 #define DEBUG_QIT
 #include <Automatic.h>
+#include <QitContainers.h>
 
 LED< LED_BUILTIN > ledBuildin;
+MiniMulti< int , 8 > stackMini;
 
 // Set the right pins! Mutual exclusive so callback is added later
 ButtonLongPress< 7, 5000 > butTest([](unsigned long time) {
@@ -25,6 +27,16 @@ Timers< 1 > timTimers;
 Once onceMain([]() {
   
   qit_debug("Starting up.");
+
+  // *(stackMini.push()) = 10;
+  stackMini.push(22);
+
+  qit_debug(String(*stackMini.top()));
+
+  stackMini.pop();
+
+  qit_debug(String(*stackMini.top()));
+
 
 });
 
