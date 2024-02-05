@@ -64,6 +64,17 @@ public:
     SensorServer::last = which;
   }
 
+  // Disable all sensors
+  static void disableAll() {  
+    Sensor *i = first;
+next_sensor:
+    if (i) {
+      i->disable();
+      i = i->next;
+      goto next_sensor;
+    }
+  }
+
   // Update all sensors
   static void heartbeat() {
     // Start from which one
