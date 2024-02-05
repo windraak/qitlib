@@ -28,10 +28,11 @@ public:
     MiniMulti< T , BUFFER_SIZE >() { _loc = &_data[0]; }
 
     // The common stuff
-    inline T* top() { return _loc; }
-    void pop() { _loc --; }
-    T* push() { return ++_loc; }
-    void push(T what) { *(++_loc) = what; }
+    inline T* top() { return _loc - 1; }
+    inline void pop() { _loc --; }
+    void push(T what) { *_loc = what; _loc++; }
+
+    inline bool inRange() { return _loc >= &_data[0] && _loc < &_data[BUFFER_SIZE]; }
 
     // Some operator overloading. Add more stuff later
     inline T* operator[] (int w) { return &_data[w]; }

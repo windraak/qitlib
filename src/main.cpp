@@ -28,8 +28,8 @@ Once onceMain([]() {
   
   qit_debug("Starting up.");
 
-  // *(stackMini.push()) = 10;
   stackMini.push(22);
+  stackMini.push(33);
 
   qit_debug(String(*stackMini.top()));
 
