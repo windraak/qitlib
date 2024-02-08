@@ -22,18 +22,19 @@ template < int SIZE = 8 >
 class StateMachine : public qit::container::MiniMulti< State* , SIZE > {
 public:
 
-    inline void heartbeat() {
+    void heartbeat() {
         this->top()->beat();
     }
 
-    inline void exitstate() {
+    void exitstate() {
         this->top()->leave(); 
-        this->pop(); 
+        this->pop();
+        this->top()->init();
     }
 
-    inline void addstate(State* which) {
+    void addstate(State* which) {
         this->push(which);
-        this->top()->init();
+        which->init();
     }
 };
 

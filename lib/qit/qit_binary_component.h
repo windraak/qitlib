@@ -21,7 +21,8 @@ public:
     // Keep track whether it is on
     bool is_on = false;
     
-    // Enable it when the class is constructed
+    // Enable it when the class is constructed, doesn't have to be
+    // as a sensor
     BinaryComponent() {
         ::pinMode(PIN_NUMBER, OUTPUT);
     }
@@ -30,6 +31,9 @@ public:
     void on() { is_on = true; digitalWrite(PIN_NUMBER, HIGH); }
     void off() { is_on = false; digitalWrite(PIN_NUMBER, LOW); }
     inline void toggle() { if (is_on) off(); else on(); }
+
+    // By read
+    bool byRead() { return ::digitalRead(PIN_NUMBER); }
 
 };
 

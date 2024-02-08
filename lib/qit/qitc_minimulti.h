@@ -27,16 +27,18 @@ private:
 public:
     MiniMulti< T , BUFFER_SIZE >() { _loc = 0; }
 
+    byte count() { return _loc; };
+
     // The common stuff
-    inline T top() { 
+    T top() { 
         if (_loc > 0) 
             return _data[_loc - 1];
         return NULL; 
     }
 
-    inline void pop() { _loc --; }
+    inline void pop() { if(_loc) _loc --; }
     
-    void push(T what) { _data[_loc] = what; _loc++; }
+    void push(T what) { _data[_loc < BUFFER_SIZE ? _loc : BUFFER_SIZE] = what; _loc++; }
 
     // Some operator overloading. Add more stuff later
     inline T* operator[] (int w) { return &_data[w]; }

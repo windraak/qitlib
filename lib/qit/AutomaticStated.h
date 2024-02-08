@@ -9,18 +9,18 @@ using namespace qit;
 
 #define CreateStatemachine(WHICH, SIZE)                     \
                                                             \
-StateMachine< SIZE > __stm_automated;                       \
+StateMachine< SIZE > Statemachine;                          \
 WHICH __state_init;                                         \
                                                             \
 void setup() {                                              \
     Serial.begin(9600);                                     \
     SensorServer::initialize();                             \
-    __stm_automated.addstate(&__state_init);                \
+    Statemachine.addstate(&__state_init);                   \
 }                                                           \
                                                             \
 void loop() {                                               \
     SensorServer::heartbeat();                              \
-    __stm_automated.heartbeat();                            \
+    Statemachine.heartbeat();                               \
 }                                                           \
 
 
