@@ -21,18 +21,22 @@ class MiniMulti {
 private:
     // Not the most logical... But its a mini stack
     T _data[BUFFER_SIZE];
-    T* _loc;
+    byte _loc;
 
     // Some basic stack functionality
 public:
-    MiniMulti< T , BUFFER_SIZE >() { _loc = &_data[0]; }
+    MiniMulti< T , BUFFER_SIZE >() { _loc = 0; }
 
     // The common stuff
-    inline T* top() { return _loc - 1; }
-    inline void pop() { _loc --; }
-    void push(T what) { *_loc = what; _loc++; }
+    inline T top() { 
+        if (_loc > 0) 
+            return _data[_loc - 1];
+        return NULL; 
+    }
 
-    inline bool inRange() { return _loc >= &_data[0] && _loc < &_data[BUFFER_SIZE]; }
+    inline void pop() { _loc --; }
+    
+    void push(T what) { _data[_loc] = what; _loc++; }
 
     // Some operator overloading. Add more stuff later
     inline T* operator[] (int w) { return &_data[w]; }

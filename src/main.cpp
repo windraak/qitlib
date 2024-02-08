@@ -5,6 +5,7 @@
 #define DEBUG_QIT
 #include <Automatic.h>
 #include <QitContainers.h>
+#include "qit_statemachine.h"
 
 LED< LED_BUILTIN > ledBuildin;
 MiniMulti< int , 8 > stackMini;
@@ -24,10 +25,24 @@ Button< 7 > butTest2([](bool pressed) {
 // Only need one timer
 Timers< 1 > timTimers;
 
+// Testing statemachines
+StateMachine< 8 > stmMine;
+
+class WorkingState : public State {
+  void beat() { qit_debug("Yuppers."); }
+  void init() {}
+  void leave() {}
+};
+
+WorkingState testState;
+
 Once onceMain([]() {
   
   qit_debug("Starting up.");
 
+  stmMine.addstate(&testState);
+
+/*
   stackMini.push(22);
   stackMini.push(33);
 
@@ -36,7 +51,10 @@ Once onceMain([]() {
   stackMini.pop();
 
   qit_debug(String(*stackMini.top()));
-
+*/
 
 });
 
+Loop updStates([]() {
+  stmMine.heartbeat();
+});
