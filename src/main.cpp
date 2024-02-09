@@ -8,12 +8,8 @@ namespace Components {
 
 }
 
-class MainEntry : public State {
-public:
-    void init();
-    void beat();
-    void leave();
-};
+CreateState(MainEntry);
+CreateStatemachine(MainEntry, 8);
 
 void MainEntry::init() {
   Serial.println("I am the knight that says ni");
@@ -30,5 +26,3 @@ void MainEntry::beat() {
 void MainEntry::leave() {
     Serial.println("And I have to go");
 }
-
-CreateStatemachine(MainEntry, 8);

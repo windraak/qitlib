@@ -9,22 +9,28 @@ using namespace qit;
 
 #define CreateStatemachine(WHICH, SIZE)                     \
                                                             \
-StateMachine< SIZE > Statemachine;                          \
+TStateMachine< SIZE > StateMachine;                          \
 WHICH __state_init;                                         \
                                                             \
 void setup() {                                              \
     Serial.begin(9600);                                     \
     while (!Serial);                                        \
     SensorServer::initialize();                             \
-    Serial.println("Initialized sensors.");                 \
     delay(2500);                                            \
-    Statemachine.addstate(&__state_init);                   \
+    StateMachine.addstate(&__state_init);                   \
 }                                                           \
                                                             \
 void loop() {                                               \
     SensorServer::heartbeat();                              \
-    Statemachine.heartbeat();                               \
+    StateMachine.heartbeat();                               \
 }                                                           \
 
+#define CreateState(WHICH)                                  \
+class WHICH : public State {                                \
+public:                                                     \
+    void init();                                            \
+    void beat();                                            \
+    void leave();                                           \
+};                                                          \
 
 #endif

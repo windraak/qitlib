@@ -24,7 +24,7 @@ public:
 
 // Create an automated statemachine
 template < int SIZE = 8 >
-class StateMachine : public qit::container::MiniMulti< State* , SIZE > {
+class TStateMachine : public qit::container::MiniMulti< State* , SIZE > {
 public:
 
     void heartbeat() {
