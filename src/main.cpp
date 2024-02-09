@@ -1,30 +1,34 @@
-// Currently working
 
-////////////////////////////////////////////////////////////////////
-// Automatic takes care of setup() and loop()
 #define DEBUG_QIT
-#include "Automatic.h"
-// qit.h imports all the basic quickly interfacing templates
-#include "qit.h"
+#include "AutomaticStated.h"
 
-// Testing the mini stack
-#include "qitc_minimulti.h"
+namespace Components {
 
-// we use this namespace so it comes to scope
-using namespace qit;
+  Button< 7 > btnMain;
 
-container::MiniMulti< int , 8 > mltTest;
+}
 
-// we construct a binary led component that interfaces
-LED< LED_BUILTIN > ledBuiltin;
+class MainEntry : public State {
+public:
+    void init();
+    void beat();
+    void leave();
+};
 
-// construct a button object, 7 is the pin number, the function
-// passed is called a lambda, or a referenced function
-Button< 7 > btnToggleLed([](bool pressed) {
-  // is a button pressed?
-  if (pressed) {
-    // yes, then toggle the led component
-    ledBuiltin.toggle();
-  }
-});
+void MainEntry::init() {
+  Serial.println("I am the knight that says ni");
+  Components::btnMain.callback = [](bool pressed) {
+    if (pressed)
+      Serial.println("You done just hit me with that.");
+  };
+}
 
+void MainEntry::beat() {
+    // Serial.println("Crazy");
+}
+
+void MainEntry::leave() {
+    Serial.println("And I have to go");
+}
+
+CreateStatemachine(MainEntry, 8);

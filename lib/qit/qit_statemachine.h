@@ -13,8 +13,13 @@ struct State {
 public:
 
     virtual void init() {}
-    virtual void beat() { }
+    virtual void beat() {}
     virtual void leave() {}
+};
+
+class RootState : public State {
+public:
+    void init() { Serial.println("Entering the bottom state stack."); }
 };
 
 // Create an automated statemachine
@@ -27,15 +32,20 @@ public:
     }
 
     void exitstate() {
+        if (this->top() == NULL)
+            return;
         this->top()->leave(); 
         this->pop();
+        if (this->top() == NULL)
+            return;
         this->top()->init();
     }
 
     void addstate(State* which) {
-        this->push(which);
         which->init();
+        this->push(which);
     }
+
 };
 
 }

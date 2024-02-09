@@ -31,7 +31,7 @@ public:
 
     // The common stuff
     T top() { 
-        if (_loc > 0) 
+        if (_loc > 0 && _loc < BUFFER_SIZE) 
             return _data[_loc - 1];
         return NULL; 
     }
@@ -41,7 +41,7 @@ public:
     void push(T what) { _data[_loc < BUFFER_SIZE ? _loc : BUFFER_SIZE] = what; _loc++; }
 
     // Some operator overloading. Add more stuff later
-    inline T* operator[] (int w) { return &_data[w]; }
+    // inline T* operator[] (int w) { return &_data[w]; }
 };
 
 }

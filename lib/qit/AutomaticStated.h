@@ -14,7 +14,10 @@ WHICH __state_init;                                         \
                                                             \
 void setup() {                                              \
     Serial.begin(9600);                                     \
+    while (!Serial);                                        \
     SensorServer::initialize();                             \
+    Serial.println("Initialized sensors.");                 \
+    delay(2500);                                            \
     Statemachine.addstate(&__state_init);                   \
 }                                                           \
                                                             \
