@@ -72,7 +72,7 @@ public:
     lastButtonState =! reading;
 
     // Is the pin not pressed and is it not being currently pressed?
-    if (reading == LOW) {
+    if (reading == (INPUT_PULLUP ? LOW : HIGH)) {
       if (pressed == false)
       {
         pressed = true;
@@ -80,7 +80,7 @@ public:
         callback(true);
       }
     // It circuits?
-    } else if (reading == HIGH) {
+    } else if (reading == (INPUT_PULLUP ? HIGH : LOW)) {
       if (pressed == true)
       {
         pressed = false;
