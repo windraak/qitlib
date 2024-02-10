@@ -1,10 +1,11 @@
 
 #define DEBUG_QIT
 #include "AutomaticStated.h"
+#include "Grove.h"
 
 namespace Components {
 
-  Button< 7 > btnMain;
+  Grove::Button< 3 > btnMain;
 
 }
 

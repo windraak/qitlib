@@ -18,7 +18,7 @@ namespace qit {
 typedef void (*__button_callback) (bool);
 
 // The actual template for a button class
-template< int PIN_NUMBER , unsigned long DEBOUNCE = 40, bool USE_PULLUP = true >
+template< int PIN_NUMBER , unsigned long DEBOUNCE = 40, bool USE_PULLUP = true , bool INVERTED = false >
 class Button : public Sensor
 {
 public:
@@ -72,7 +72,7 @@ public:
     lastButtonState =! reading;
 
     // Is the pin not pressed and is it not being currently pressed?
-    if (reading == (INPUT_PULLUP ? LOW : HIGH)) {
+    if (reading == (INPUT_PULLUP ? (INVERTED ? HIGH : LOW) : (INVERTED ? LOW : HIGH))) {
       if (pressed == false)
       {
         pressed = true;
@@ -80,7 +80,7 @@ public:
         callback(true);
       }
     // It circuits?
-    } else if (reading == (INPUT_PULLUP ? HIGH : LOW)) {
+    } else if (reading == (INPUT_PULLUP ? (INVERTED ? LOW : HIGH) : (INVERTED ?  HIGH : LOW))) {
       if (pressed == true)
       {
         pressed = false;
