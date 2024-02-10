@@ -4,5 +4,6 @@
 
 #include "qitg_button.h"
 #include "qitg_temperature.h"
+#include "qitg_dht11.h"
 
 #endif

@@ -20,25 +20,30 @@
 namespace qit::Grove
 {
 
-template < int NUM >
+template < int NUM , unsigned long INTERVAL = 1000 >
 class Temperature : public Sensor {
 public:
     OneWire oneWire;
     DallasTemperature sensors;
 
+    unsigned long next_update = ::millis() + INTERVAL;
+
     void initialize() {
         oneWire.begin(NUM);
         sensors.setOneWire(&oneWire);
-
         sensors.begin();
+        sensors.requestTemperatures();
     }
 
-    float read(int bus = 0) {
+    inline float read(int bus = 0) {
         return sensors.getTempCByIndex(bus);
     }
 
     void beat() {
-        sensors.requestTemperatures();
+        if (::millis() > this->next_update) {
+            sensors.requestTemperatures();
+            this->next_update = ::millis() + INTERVAL;
+        }
     }
 };
 
