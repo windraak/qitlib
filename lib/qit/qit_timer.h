@@ -180,20 +180,17 @@ public:
 
 #else
 
-  inline void tryToIdle(unsigned int threshold = 1000) { }
+  // inline void tryToIdle(unsigned int threshold = 1000) { }
   
-  //! Fix this soon
+  void tryToIdle(int threshold = 1000) {
+      long now = ::millis();
+      for (Timer& i : timers)
+        if (i.enabled)
+          if ((i.next_turn -  now) < threshold)
+            return;
 
-  // Power saver
-  // void tryToIdle(unsigned int threshold = 1000) {
-  //     long now = ::millis();
-  //     for (Timer& i : timers)
-  //       if (i.enabled)
-  //         if ((i.next_turn -  now) < threshold)
-  //           return;
-
-  //     PowerSaver.idle(threshold); 
-  // }
+      LowPower.sleep(threshold); 
+  }
 
 #endif
 
