@@ -178,19 +178,25 @@ public:
 
   inline void tryToIdle(unsigned int threshold = 1000) { }
 
-#else
+#elseif defined(ARDUINO_ARCH_NRF52) || defined(ARDUINO_ARCH_SAMD)
 
   // inline void tryToIdle(unsigned int threshold = 1000) { }
   
-  void tryToIdle(int threshold = 1000) {
+  void tryToIdle(unsigned int threshold = 1000) {
+    
       long now = ::millis();
       for (Timer& i : timers)
         if (i.enabled)
           if ((i.next_turn -  now) < threshold)
             return;
 
-      LowPower.sleep(threshold); 
+      LowPower.idle((int)threshold);
+      
   }
+
+#else
+
+  inline void tryToIdle(unsigned int threshold = 1000) { }
 
 #endif
 
