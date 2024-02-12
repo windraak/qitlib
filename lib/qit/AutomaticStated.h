@@ -17,7 +17,6 @@ void setup() {                                              \
     while (!Serial);                                        \
     SensorServer::initialize();                             \
     delay(2500);                                            \
-    StateMachine.addstate(&__state_init);                   \
 }                                                           \
                                                             \
 void loop() {                                               \

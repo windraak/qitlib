@@ -38,7 +38,10 @@ public:
 
     inline void pop() { if(_loc) _loc --; }
     
-    void push(T what) { _data[_loc < BUFFER_SIZE ? _loc : BUFFER_SIZE - 1] = what; _loc++; }
+    void push(T what) { 
+        _data[_loc < BUFFER_SIZE ? _loc : BUFFER_SIZE - 1] = what; 
+        _loc++; 
+    }
 
     void each([](T wh) funct) {
         for (byte x = 0; x < _loc; x++)
@@ -46,7 +49,9 @@ public:
     }
 
     // Some operator overloading. Add more stuff later
-    inline T operator[] (int w) { return _data[w < BUFFER_SIZE ? _loc : BUFFER_SIZE - 1]; }
+    inline T operator[] (int w) { 
+        return _data[w < BUFFER_SIZE ? _loc : BUFFER_SIZE - 1]; 
+    }
 };
 
 }
