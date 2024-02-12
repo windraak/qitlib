@@ -21,8 +21,11 @@ void setup() {                                              \
 }                                                           \
                                                             \
 void loop() {                                               \
-    SensorServer::heartbeat();                              \
-    StateMachine.heartbeat();                               \
+    StateMachine.addstate(&__state_init);                   \
+    while (StateMachine.top() != NULL) {                    \
+        SensorServer::heartbeat();                          \
+        StateMachine.heartbeat();                           \
+    }                                                       \
 }                                                           \
 
 #define CreateState(WHICH)                                  \
