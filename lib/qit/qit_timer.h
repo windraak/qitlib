@@ -174,14 +174,8 @@ public:
     return which;
   }
 
-#if defined(__AVR__)
+#if defined(ARDUINO_ARCH_NRF52) || defined(ARDUINO_ARCH_SAMD)
 
-  inline void tryToIdle(unsigned int threshold = 1000) { }
-
-#elseif defined(ARDUINO_ARCH_NRF52) || defined(ARDUINO_ARCH_SAMD)
-
-  // inline void tryToIdle(unsigned int threshold = 1000) { }
-  
   void tryToIdle(unsigned int threshold = 1000) {
     
       long now = ::millis();
