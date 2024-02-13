@@ -22,5 +22,6 @@
 #include "qit_once.h"
 #include "qit_sensor.h"
 #include "qit_timer.h"
+#include "qit_functions.h"
 
 #endif

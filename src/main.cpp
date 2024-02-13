@@ -4,7 +4,7 @@
 #include "Grove.h"
 #include "qit_functions.h"
 
-Functions< 8 > differentGreet;
+Functions< 8 > enemies;
 
 namespace Components {
 
@@ -19,31 +19,43 @@ CreateStatemachine(MainEntry, 8);
 
 void MainEntry::init() {
 
-  differentGreet.clear();
+  enemies.clear();
   
-  Serial.println("ENTERING BATTLEFIELD");
+  // Serial.println("ENTERING BATTLEFIELD");
 
-  // Testing function tuples
+  // // Testing function tuples
 
-  differentGreet.addFunction([]() { Serial.println("Looking for enemies..."); });
+  enemies.addFunction(
+    []() { 
+      static KnightState ks;
+      StateMachine.addstate(&ks);
+    });
+  
+  enemies.addFunction(
+    []() { 
+      static EnemyState es;
+      StateMachine.addstate(&es);
+    });
 
-  differentGreet.addFunction([]() { Serial.println("We're in the fields..."); });
+  // differentGreet.addFunction([]() { Serial.println("We're in the fields..."); });
 
-  differentGreet.addFunction([]() { Serial.println("Something looks ominous..."); });
+  // differentGreet.addFunction([]() { Serial.println("Something looks ominous..."); });
 
-  differentGreet.random();
-  differentGreet.random();
-  differentGreet.random();
-  differentGreet.random();
+  // differentGreet.random();
+  // differentGreet.random();
+  // differentGreet.random();
+  // differentGreet.random();
 
-  while(!Serial);
+  // while(!Serial);
   // differentGreet.get_ref(0)->call();
   // differentGreet.yield();
 
+  qit_debug("We're in the fields...");
+
   Components::btnMain.callback = [](bool pressed) {
     if (pressed) {
-      static KnightState ks;
-      StateMachine.addstate(&ks);
+      Serial.println("Looking for enemies..."); 
+      enemies.random();
     }
   };
 
@@ -52,7 +64,7 @@ void MainEntry::init() {
 void MainEntry::beat() { }
 
 void MainEntry::leave() {
-    Serial.println("And I have to go");
+    qit_debug("And I have to go");
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -60,7 +72,7 @@ void MainEntry::leave() {
 int hits = 3;
 
 void KnightState::init() {
-  Serial.println("The knight takes three hits");
+  qit_debug("The weak enemy takes three hits");
   hits = 3;
 
   Components::btnMain.callback = [](bool pressed) {
@@ -73,7 +85,7 @@ void KnightState::init() {
 }
 
 void KnightState::leave() {
-  Serial.println("I have been defeated!");
+  qit_debug("I have been defeated!");
 }
 
 void KnightState::beat() { }
@@ -81,8 +93,8 @@ void KnightState::beat() { }
 ///////////////////////////////////////////////////////////////////////////
 
 void EnemyState::init() {
-  Serial.println("The skeleton takes 2 hits");
-  hits = 2;
+  Serial.println(F("The skelleton takes 5 hits"));
+  hits = 5;
 
   Components::btnMain.callback = [](bool pressed) {
     if (pressed) {
@@ -94,7 +106,7 @@ void EnemyState::init() {
 }
 
 void EnemyState::leave() {
-  Serial.println("I have been defeated!");
+  Serial.println("I, the mighty skelleton have been defeated!");
 }
 
 void EnemyState::beat() { }

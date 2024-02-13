@@ -62,7 +62,6 @@ public:
     }
 
     void clear() {
-        FunctionTuple empty;
         for(FunctionTuple& i : my_function_tuples)
         {
             i.called = 0;
