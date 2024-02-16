@@ -39,7 +39,7 @@ public:
 
     inline float read(int bus = 0) {
         float iread = sensors.getTempCByIndex(bus);
-        if (iread < -35f) {
+        if (iread < -35.0f) {
             errorRead++;
             return lastC;
         }
