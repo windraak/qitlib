@@ -11,7 +11,7 @@
 
 #include "Arduino.h"
 
-#if !defined(__AVR__)
+#if defined(ARDUINO_ARCH_NRF52) || defined(ARDUINO_ARCH_SAMD)
 #include "ArduinoLowPower.h"
 #endif
 
