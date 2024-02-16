@@ -25,6 +25,8 @@ class Temperature : public Sensor {
 public:
     OneWire oneWire;
     DallasTemperature sensors;
+    float lastC = 0.0f;
+    unsigned int errorRead = 0;
 
     unsigned long next_update = ::millis() + INTERVAL;
 
@@ -36,7 +38,13 @@ public:
     }
 
     inline float read(int bus = 0) {
-        return sensors.getTempCByIndex(bus);
+        float iread = sensors.getTempCByIndex(bus);
+        if (iread < -35f) {
+            errorRead++;
+            return lastC;
+        }
+        lastC = iread;
+        return iread;
     }
 
     void beat() {
