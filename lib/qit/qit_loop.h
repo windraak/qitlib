@@ -23,9 +23,7 @@ public:
     __loop_callback looping;
 
     // Constructor for global construction
-    Loop(__loop_callback l) : Sensor() { 
-        looping = l;
-    }
+    Loop(__loop_callback l) : Sensor(), looping(l) { }
 
     // Do it at every sensor server heart beat
     void beat() { looping(); }

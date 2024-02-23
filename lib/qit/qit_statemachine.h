@@ -2,8 +2,14 @@
 #ifndef H_STATEM_QIT
 #define H_STATEM_QIT
 
+/*
+ * qit - quick interface templates
+ * (CC-0) Joey Peters
+ * ****************************************************************
+ * Keep track of states
+ */
+
 #include "qitc_minimulti.h"
-#include "qit_debug.h"
 
 namespace qit
 {
