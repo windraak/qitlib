@@ -7,11 +7,6 @@
 ////////////////////////////////////////////////////////////////////
 // Automatic takes care of setup() and loop()
 #include "Automatic.h"
-// qit imports all the basic quickly interfacing templates
-#include "qit.h"
-
-// we use this namespace so it comes to scope
-using namespace qit;
 
 // we construct a binary led component that interfaces
 LED< LED_BUILTIN > ledBuiltin;
@@ -36,11 +31,4 @@ Button< 7 > btnDelayPrint([](bool pressed) {
     
   }
   
-});
-
-// we tell qit that once the program starts it creates a few
-// timers.
-Once fncCreateTimers([]() {
-  // every 5 seconds toggle the led
-  Serial.println("Booting.");
 });
