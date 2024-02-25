@@ -34,7 +34,7 @@ public:
     virtual void heartbeat();
     virtual void exitstate();
     virtual void addstate(State*);
-    virtual void await();
+    virtual void awaitExit();
     static void setSingleton(IStateMachine *wh) { singleton = wh; }
     static IStateMachine* getSingleton() { return singleton; }
 };
@@ -71,7 +71,7 @@ public:
         this->push(which);
     }
 
-    void await() {
+    void awaitExit() {
         State* current = this->top();
         if (current == NULL)
             return;
