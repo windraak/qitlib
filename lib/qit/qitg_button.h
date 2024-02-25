@@ -28,7 +28,7 @@ void WaitForGroveButton() {
     waitbutton.callback = [](bool pressed) {
         if (pressed) {
             self->disable();
-            qit::GetStateMachine()->exitstate();
+            qit::GetStateMachine()->exitstateHard();
         }
     };
     qit::GetStateMachine()->addstate(&NothingState);

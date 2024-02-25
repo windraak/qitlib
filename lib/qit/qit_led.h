@@ -42,7 +42,7 @@ public:
             next = ::millis() + interval;
             this->toggle();
             if (--repeat <= 0) {
-                GetStateMachine()->exitstate();
+                GetStateMachine()->exitstateHard();
             }
         }
     }

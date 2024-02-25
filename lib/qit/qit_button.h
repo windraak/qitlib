@@ -164,14 +164,16 @@ public:
   }
 };
 
+// State that pops when a button is pressed
 template< int BUTTON >
 void WaitForButton() {
+    // General button
     static qit::Button < BUTTON > waitbutton;
     waitbutton.enable();
     waitbutton.callback = [](bool pressed) {
         if (pressed) {
             self->disable();
-            qit::GetStateMachine()->exitstate();
+            qit::GetStateMachine()->exitstateHard();
         }
     };
     qit::GetStateMachine()->addstate(&NothingState);

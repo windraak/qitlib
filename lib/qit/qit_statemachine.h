@@ -33,6 +33,7 @@ private:
 public:
     virtual void heartbeat();
     virtual void exitstate();
+    virtual void exitstateHard();
     virtual void addstate(State*);
     virtual void awaitExit();
     static void setSingleton(IStateMachine *wh) { singleton = wh; }
@@ -64,6 +65,12 @@ public:
         if (this->top() == NULL)
             return;
         this->top()->init();
+    }
+
+    void exitstateHard() {
+        if (this->top() == NULL)
+            return;
+        this->pop();
     }
 
     void addstate(State* which) {
