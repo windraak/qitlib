@@ -20,6 +20,19 @@ namespace qit::Grove
 template < int NUM , unsigned long DEBOUNCE = 40 >
 using Button = qit::Button< NUM , DEBOUNCE , false, true>;
 
+template< int BUTTON >
+void WaitForGroveButton() {
+    static qit::Grove::Button < BUTTON > waitbutton;
+    waitbutton.enable();
+    waitbutton.callback = [](bool pressed) {
+        if (pressed) {
+            self->disable();
+            qit::IStateMachine::getSingleton()->exitstate();
+        }
+    };
+    qit::IStateMachine::getSingleton()->addstate(&NothingState);
+};
+
 }
 
 #endif
