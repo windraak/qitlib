@@ -23,15 +23,30 @@ public:
     virtual void leave() {}
 };
 
-class RootState : public State {
+class __NothingState : public State { };
+__NothingState NothingState;
+
+class IStateMachine {
+private:
+    static IStateMachine* singleton;
 public:
-    void init() { Serial.println("Entering the bottom state stack."); }
+    virtual void heartbeat();
+    virtual void exitstate();
+    virtual void addstate(State*);
+    static void setSingleton(IStateMachine *wh) { singleton = wh; }
+    static IStateMachine* getSingleton() { return singleton; }
 };
+
+IStateMachine* IStateMachine::singleton;
 
 // Create an automated statemachine
 template < int SIZE = 8 >
-class TStateMachine : public qit::container::MiniMulti< State* , SIZE > {
+class TStateMachine : 
+    public IStateMachine, 
+    public qit::container::MiniMulti< State* , SIZE > {
 public:
+
+    TStateMachine< SIZE >() { IStateMachine::setSingleton(this); }
 
     void heartbeat() {
         this->top()->beat();
