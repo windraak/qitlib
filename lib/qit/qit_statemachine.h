@@ -10,6 +10,7 @@
  */
 
 #include "qitc_minimulti.h"
+#include "qit_sensor.h"
 
 namespace qit
 {
@@ -33,11 +34,14 @@ public:
     virtual void heartbeat();
     virtual void exitstate();
     virtual void addstate(State*);
+    virtual void await();
     static void setSingleton(IStateMachine *wh) { singleton = wh; }
     static IStateMachine* getSingleton() { return singleton; }
 };
 
 IStateMachine* IStateMachine::singleton;
+
+IStateMachine* GetStateMachine() { return IStateMachine::getSingleton(); };
 
 // Create an automated statemachine
 template < int SIZE = 8 >
@@ -65,6 +69,16 @@ public:
     void addstate(State* which) {
         which->init();
         this->push(which);
+    }
+
+    void await() {
+        State* current = this->top();
+        if (current == NULL)
+            return;
+        while (this->top() == current) {
+            SensorServer::heartbeat();
+            this->heartbeat();
+        }
     }
 
 };

@@ -9,7 +9,7 @@ using namespace qit;
 
 #define CreateStatemachine(WHICH, SIZE)                     \
                                                             \
-TStateMachine< SIZE > StateMachine;                          \
+TStateMachine< SIZE > StateMachine;                         \
 WHICH __state_init;                                         \
                                                             \
 void setup() {                                              \

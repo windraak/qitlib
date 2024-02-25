@@ -11,6 +11,7 @@
  */
 
 #include "qit_sensor.h"
+#include "qit_statemachine.h"
 
 namespace qit {
 
@@ -170,10 +171,10 @@ void WaitForButton() {
     waitbutton.callback = [](bool pressed) {
         if (pressed) {
             self->disable();
-            qit::IStateMachine::getSingleton()->exitstate();
+            qit::GetStateMachine()->exitstate();
         }
     };
-    qit::IStateMachine::getSingleton()->addstate(&NothingState);
+    qit::GetStateMachine()->addstate(&NothingState);
 };
 
 }
