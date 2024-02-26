@@ -18,11 +18,15 @@
 namespace qit::Grove
 {
 
+// A grove button is technically a button that has a pullup
 template < int NUM , unsigned long DEBOUNCE = 40 >
 using Button = qit::Button< NUM , DEBOUNCE , false, true>;
 
+// Actual functionality for waiting until it is pressed
 template< int BUTTON >
 void WaitForGroveButton() {
+    // Memory is allocated only at template creation
+    // Will be re usable of it is used again with same button
     static qit::Grove::Button < BUTTON > waitbutton;
     waitbutton.enable();
     waitbutton.callback = [](bool pressed) {
