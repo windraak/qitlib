@@ -99,11 +99,15 @@ public:
         // Safety check
         if (current == NULL)
             return;
+        // Sometimes awaitexit is called in a component, so
+        // we buffer it.
+        Sensor* bufferme = self;
         // Is it changed within the state?
         while (this->top() == current) {
             SensorServer::heartbeat();
             this->heartbeat();
         }
+        self = bufferme;
         // Yes it has changed so now we can end the function
     }
 
