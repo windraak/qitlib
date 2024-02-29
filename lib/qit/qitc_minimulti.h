@@ -41,13 +41,13 @@ public:
     void inc() { _loc++; if (_loc >= BUFFER_SIZE) _loc = BUFFER_SIZE - 1; }
 
     T get(int index) {
-        if (index > 0 && index < BUFFER_SIZE)
+        if (index >= 0 && index < BUFFER_SIZE)
             return _data[index];
         return _data[BUFFER_SIZE - 1];
     }
 
     T* get_ref(int index) {
-        if (index > 0 && index < BUFFER_SIZE)
+        if (index >= 0 && index < BUFFER_SIZE)
             return &_data[index];
         return &_data[BUFFER_SIZE - 1];
     }
