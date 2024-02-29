@@ -68,7 +68,7 @@ public:
     }
 
     // Execute all functions, sometimes useful
-    void all() { for(FunctionTuple i : my_function_tuples) i.call(); }
+    void all() { for(FunctionTuple& i : my_function_tuples) i.call(); }
 
     // The container functions
     void addFunction(VoidFunction which) {
