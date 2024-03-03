@@ -9,6 +9,7 @@
  */
 
 #include <Arduino.h>
+#include "qit_statemachine.h"
 
 namespace qit
 {

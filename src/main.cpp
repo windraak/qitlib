@@ -1,6 +1,20 @@
-
 #define DEBUG_QIT
+#include <Automatic.h>
 
+Once printHelloWorld(
+  []() {
+    Serial.println("Hello world!");
+  }
+);
+
+Loop lpThreeSecondNotice(
+  []() {
+    Serial.println("Waiting for three seconds");
+    delay(3000);
+  }
+);
+
+/*
 // Include the basis statemachine macros
 #include "AutomaticStated.h"
 
@@ -96,3 +110,4 @@ void EnemyState::leave() {
 }
 
 void EnemyState::beat() { }
+*/
