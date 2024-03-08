@@ -1,18 +1,27 @@
 #define DEBUG_QIT
 #include <Automatic.h>
 
-Once printHelloWorld(
-  []() {
-    Serial.println("Hello world!");
-  }
-);
+// Create a LED on builtin pin
+LED < LED_BUILTIN > ledBuiltin;
+Timers< 1 > tmrServer;
+Timer *tmrToggler;
 
-Loop lpThreeSecondNotice(
-  []() {
-    Serial.println("Waiting for three seconds");
-    delay(3000);
-  }
-);
+// Create a button
+Button< 7 > btnToggler([](bool pressed) {
+  // Are we pressed?
+  if (pressed) 
+    // Toggle the timer
+    tmrToggler->toggle();
+});
+
+// Once initialize the timers
+Once onceCreateTimers([]() {
+  // !!! Remember the timer into the global variable scope
+  tmrToggler = tmrServer.forever(1000, [](int cll) {
+    // Toggle the led
+    ledBuiltin.toggle();
+  });
+});
 
 /*
 // Include the basis statemachine macros

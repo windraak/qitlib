@@ -39,6 +39,7 @@ struct Timer {
 
   inline void enable() { this->enabled = true; }
   inline void disable() { this->enabled = false; }
+  inline void toggle() { this->enabled =! this->enabled; }
 
   inline void dispose() { this->disable(); this->disposed = true; }
 
