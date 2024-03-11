@@ -10,9 +10,10 @@
  * features.
  */
 
+#include "qit_sensor.h"
+
 #ifndef QIT_DELAY
 #define QIT_DELAY
-#include "qit_sensor.h"
 // Not ideally placed but ok
 namespace qit { 
     void qit_delay(unsigned long howlong) {

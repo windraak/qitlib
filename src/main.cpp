@@ -1,27 +1,34 @@
 #define DEBUG_QIT
-#include <Automatic.h>
+#include <AutomaticStated.h>
+#include "qitg_button.h"
 
-// Create a LED on builtin pin
-LED < LED_BUILTIN > ledBuiltin;
-Timers< 1 > tmrServer;
-Timer *tmrToggler;
+CreateState(TempFloodMessage);
 
-// Create a button
-Button< 7 > btnToggler([](bool pressed) {
-  // Are we pressed?
-  if (pressed) 
-    // Toggle the timer
-    tmrToggler->toggle();
+void TempFloodMessage::beat()
+{
+  Serial.println('!');
+}
+
+void TempFloodMessage::init() { }
+
+void TempFloodMessage::leave() { }
+
+Grove::Button< 5 > btnSpawn([](bool pressed) {
+  if (pressed) {
+    Serial.println("Flooding.");
+    // static TempFloodMessage tst; 
+    TimedState< TempFloodMessage >(1000);
+  }
 });
 
-// Once initialize the timers
-Once onceCreateTimers([]() {
-  // !!! Remember the timer into the global variable scope
-  tmrToggler = tmrServer.forever(1000, [](int cll) {
-    // Toggle the led
-    ledBuiltin.toggle();
-  });
-});
+CreateState(Program);
+CreateStatemachine(Program, 8);
+
+void Program::init() { }
+
+void Program::beat() { }
+
+void Program::leave() { }
 
 /*
 // Include the basis statemachine macros

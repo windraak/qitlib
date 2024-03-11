@@ -197,6 +197,45 @@ public:
 
 };
 
+// May be useful
+template< class FUNCT >
+void RunFor(unsigned long time, FUNCT call) {
+  unsigned long stopat = time + ::millis();
+  while (::millis() < stopat)
+    call();  
+}
+
+// Calling a state for x time
+class TemporaryTimedState : public State {
+public:
+  State *target;
+  unsigned long expire = 0;
+  
+public:
+  TemporaryTimedState(State* atw, unsigned long exp = 1000) :
+    target(atw),
+    expire(exp + ::millis())  { }
+
+  void init() { target->init(); }
+
+  void beat() {
+    target->beat();
+    if (::millis() > expire)
+      GetStateMachine()->exitstate();
+  }
+
+  void leave() { target->leave(); }
+
+};
+
+template < class T >
+void TimedState(unsigned long time) {
+  static T which;
+  static TemporaryTimedState i(&which, time);
+  i.expire = time + ::millis();
+  GetStateMachine()->addstate(&i);
+}
+
 }
 
 #endif
